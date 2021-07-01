@@ -27,8 +27,6 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_system_intro.adoc[]
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/create_directory_structure_hello.adoc[]
-
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/create_both_builds.adoc[]
 
 `build.gradle`
@@ -71,7 +69,7 @@ Before you can build the application, you need to set up a Cassandra database.
 
 Apache Cassandra is an open-source NoSQL data store optimized for fast reads in large datasets. In this guide you'll be using https://astra.datastax.com/[DataStax Astra] Cassandra-as-a-Service, which offers a generous free tier, no credit card required. You'll be able to create and store data in your Cassandra database in matter of minutes.
 
-Follow the instructions and create a database and keystore named `spring-cassandra`.
+Follow the instructions in the following link to create a database and keystore named `spring-cassandra`.
 
 == Configure your application
 
@@ -93,43 +91,11 @@ NOTE: It is a good security practice to set this to `none` in production, to avo
 
 We will also be increasing the default timeouts which might be needed when first creating the schema or with slow remote network connections.
 
-Use the generated Client ID and Client Secret as your `username` and `password`.
+The properties in the `application.properties` are used by the Cassandra and Astra auto-configuration, we need the configuration to connect to our cloud database:
 
-The properties in the `application.properties` are used by the Cassandra auto-configuration, but we need to customize the configuration to connect to our cloud database:
+* Define the credentials: client ID, client secret and application token.
 
-* Download the Astra secure bundle, rename it to `secure-connect-gs-spring-cassandra.zip` and copy it to `src/main/resources`.
-
-* Add a `CqlSessionBuilderCustomizer` bean to configure the secure bundle in your main `AccessingDataCassandraApplication` class.
-
-====
-[source,java,tabsize=2]
-----
-package com.example.accessingdatacassandra;
-
-import java.io.File;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.cassandra.CqlSessionBuilderCustomizer;
-import org.springframework.context.annotation.Bean;
-
-@SpringBootApplication
-public class AccessingDataCassandraApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(AccessingDataCassandraApplication.class, args);
-	}
-
-	@Bean
-    public CqlSessionBuilderCustomizer sessionBuilderCustomizer(
-    		@Value("${datastax.astra.secure-connect-bundle}") File secureBundle) {
-        return builder -> builder.withCloudSecureConnectBundle(secureBundle.toPath());
-    }
-	
-}
-----
-====
+* Select your instance with the cloud region, database id and keyspace (`spring-cassandra`).
 
 == Create the Cassandra Entity
 
@@ -172,6 +138,22 @@ NOTE: Some generated methods in the repository might require a full table scan. 
 
 == Adding a CommandLineRunner
 
+Define a bean of type `CommandLineRunner` and inject the `VetRepository` to set up some data and use its methods.
+
+Spring Boot automatically handles those repositories as long as they are included in the
+same package (or a sub-package) of your `@SpringBootApplication` class. For more control
+over the registration process, you can use the `@EnableCassandraRepositories` annotation.
+
+NOTE: By default, `@EnableCassandraRepositories` scans the current package for any interfaces
+that extend one of Spring Data's repository interfaces. You can use its
+`basePackageClasses=MyRepository.class` to safely tell Spring Data Cassandra to scan a
+different root package by type if your project layout has multiple projects and it does
+not find your repositories.
+
+Spring Data Cassandra uses the `CassandraTemplate` to execute the queries behind your find* methods. You can use the template yourself for more complex queries, but this guide does not cover that. (see the Spring Data Cassandra Reference Guide[https://docs.spring.io/spring-data/cassandra/docs/current/reference/html/#reference]).
+
+The following listing shows the finished AccessingDataCassandraApplication class (at /src/main/java/com/example/accessingdatacassandra/AccessingDataCassandraApplication.java):
+
 ====
 [source,java,tabsize=2]
 ----
@@ -179,10 +161,22 @@ include::complete/src/main/java/com/example/accessingdatacassandra/AccessingData
 ----
 ====
 
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/build_an_executable_jar_mainhead.adoc[]
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/build_an_executable_jar_with_both.adoc[]
+
 == Summary
 
-Congratulations! You've just developed a Spring Data Cassandra.
+Congratulations! You've just developed a Spring application that use Spring Data Cassandra to access data.
 
+== See Also
+
+The following guides may also be helpful:
+
+* https://spring.io/guides/gs/accessing-data-mysql/[Accessing Data with MySQL]
+* https://spring.io/guides/gs/accessing-data-jpa/[Accessing Data with JPA]
+* https://spring.io/guides/gs/accessing-data-mongodb/[Accessing Data with MongoDB]
+* https://spring.io/guides/gs/accessing-data-neo4j/[Accessing Data with Neo4j]
+* https://spring.io/guides/gs/accessing-data-gemfire/[Accessing data with Gemfire]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
 

@@ -22,17 +22,20 @@ public class AccessingDataCassandraApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner clr(VetRepository vetRepository, CassandraTemplate cassandraTemplate) {
+	public CommandLineRunner clr(VetRepository vetRepository) {
 		return args -> {
+			vetRepository.deleteAll();
 			
-			Vet vet = new Vet(UUID.randomUUID(), "Sergi", "Almar", new HashSet<>(Arrays.asList("surgery")));
+			Vet john = new Vet(UUID.randomUUID(), "John", "Doe", new HashSet<>(Arrays.asList("surgery")));
+			Vet jane = new Vet(UUID.randomUUID(), "Jane", "DOe", new HashSet<>(Arrays.asList("radiology, surgery")));
 			
-			Vet savedVet = vetRepository.save(vet);
+			Vet savedJohn = vetRepository.save(john);
+			Vet savedJane = vetRepository.save(jane);
 
 			vetRepository.findAll()
 				.forEach(v -> log.info("Vet: {}", v.getFirstName()));
 			
-			vetRepository.findById(savedVet.getId())
+			vetRepository.findById(savedJohn.getId())
 				.ifPresent(v -> log.info("Vet by id. {}", v.getFirstName()));
 		};
 	}
