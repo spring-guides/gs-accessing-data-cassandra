@@ -27,7 +27,7 @@ public class AccessingDataCassandraApplication {
 			vetRepository.deleteAll();
 			
 			Vet john = new Vet(UUID.randomUUID(), "John", "Doe", new HashSet<>(Arrays.asList("surgery")));
-			Vet jane = new Vet(UUID.randomUUID(), "Jane", "DOe", new HashSet<>(Arrays.asList("radiology, surgery")));
+			Vet jane = new Vet(UUID.randomUUID(), "Jane", "Doe", new HashSet<>(Arrays.asList("radiology, surgery")));
 			
 			Vet savedJohn = vetRepository.save(john);
 			Vet savedJane = vetRepository.save(jane);
