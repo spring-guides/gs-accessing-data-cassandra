@@ -67,7 +67,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 Before you can build the application, you need to set up a Cassandra database.
 
-Apache Cassandra is an open-source NoSQL data store optimized for fast reads and fast writes in large datasets. In this guide you'll use the free tier of https://dtsx.io/3hcTTHx[DataStax Astra] Cassandra-as-a-Service. You'll be able to create and store data in your Cassandra database in a matter of minutes.
+Apache Cassandra is an open-source NoSQL data store optimized for fast reads and fast writes in large datasets. In this guide you'll use the free tier of https://dtsx.io/3i9C8t1[DataStax Astra] Cassandra-as-a-Service. You'll be able to create and store data in your Cassandra database in a matter of minutes.
 
 Follow the instructions in https://docs.datastax.com/en/astra/docs/gs-grant-user-access.html[the following link] to create a database and keystore named `spring-cassandra`.
 
