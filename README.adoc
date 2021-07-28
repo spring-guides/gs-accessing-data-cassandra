@@ -11,7 +11,7 @@ You will store and retrieve data from Apache Cassandra by using Spring Data Cass
 
 == What you'll need
 
-:java_version: 1.8
+:java_version: 11
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
@@ -67,7 +67,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 Before you can build the application, you need to set up a Cassandra database.
 
-Apache Cassandra is an open-source NoSQL data store optimized for fast reads in large datasets. In this guide you'll be using https://astra.datastax.com/[DataStax Astra] Cassandra-as-a-Service, which offers a generous free tier, no credit card required. You'll be able to create and store data in your Cassandra database in matter of minutes.
+Apache Cassandra is an open-source NoSQL data store optimized for fast reads and fast writes in large datasets. In this guide you'll use the free tier of https://dtsx.io/3hcTTHx[DataStax Astra] Cassandra-as-a-Service. You'll be able to create and store data in your Cassandra database in a matter of minutes.
 
 Follow the instructions in the following link to create a database and keystore named `spring-cassandra`.
 
@@ -114,7 +114,7 @@ The class uses a simple `@PrimaryKey` of type `UUID`. Choosing the right primary
 
 NOTE: Why is it so important? The partition key not only defines data uniqueness but also controls data locality. When inserting data, the primary key is hashed and used to choose the node where to store the data, this way we know the data will always be found in that node.
 
-Cassandra doesn't support joins like a RDBMS, a common strategy to get around it is to denormalize data, this will allow you to retrieve data much faster. For that reason, we have modelled our `specialties` as a `Set<String>`.
+Cassandra denormalizes data and does not need table joins like SQL does, which allows you to retrieve data much faster. For that reason, we have modelled our `specialties` as a `Set<String>`.
 
 == Create simple queries
 
@@ -166,7 +166,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 == Summary
 
-Congratulations! You've just developed a Spring application that use Spring Data Cassandra to access data.
+Congratulations! You've just developed a Spring application that use Spring Data Cassandra to access distributed data.
 
 == See Also
 
