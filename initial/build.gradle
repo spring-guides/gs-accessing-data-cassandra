@@ -12,13 +12,9 @@ repositories {
 	mavenCentral()
 }
 
-ext {
-    astraStarterVersion = '0.1.13'
-}
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
-	implementation 'com.datastax.astra:astra-spring-boot-starter:${astraStarterVersion}'
+	//implementation 'com.datastax.astra:astra-spring-boot-starter:0.1.13'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

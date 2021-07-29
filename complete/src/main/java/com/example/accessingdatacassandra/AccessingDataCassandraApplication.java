@@ -36,7 +36,7 @@ public class AccessingDataCassandraApplication {
 				.forEach(v -> log.info("Vet: {}", v.getFirstName()));
 			
 			vetRepository.findById(savedJohn.getId())
-				.ifPresent(v -> log.info("Vet by id. {}", v.getFirstName()));
+				.ifPresent(v -> log.info("Vet by id: {}", v.getFirstName()));
 		};
 	}
 }

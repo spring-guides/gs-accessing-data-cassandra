@@ -67,19 +67,16 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 Before you can build the application, you need to set up a Cassandra database.
 
-Apache Cassandra is an open-source NoSQL data store optimized for fast reads and fast writes in large datasets. In this guide you'll use the free tier of https://dtsx.io/3i9C8t1[DataStax Astra] Cassandra-as-a-Service. You'll be able to create and store data in your Cassandra database in a matter of minutes.
+Apache Cassandra is an open-source NoSQL data store optimized for fast reads and fast writes in large datasets. In the next subsections, you can choose between using https://dtsx.io/3i9C8t1[DataStax Astra] Cassandra-as-a-Service or running it locally on a Docker container.
 
-Follow the instructions in https://docs.datastax.com/en/astra/docs/gs-grant-user-access.html[the following link] to create a database and keystore named `spring-cassandra`.
-
-== Configure your application
-
-Now that you have your database running, configure Spring Data Cassandra to access your database.
-
-Add the following properties in your `application.properties` (`src/main/resources/application.properties`):
+Add the following properties in your `application.properties` (`src/main/resources/application.properties`) to configure Spring Data Cassandra:
 ====
 [source,properties]
 ----
-include::complete/src/main/resources/application.properties[]
+spring.data.cassandra.schema-action=CREATE_IF_NOT_EXISTS
+spring.data.cassandra.request.timeout=10s
+spring.data.cassandra.connection.connect-timeout=10s
+spring.data.cassandra.connection.init-query-timeout=10s
 ----
 ====
 
@@ -91,11 +88,83 @@ NOTE: It is a good security practice to set this to `none` in production, to avo
 
 We will also be increasing the default timeouts which might be needed when first creating the schema or with slow remote network connections.
 
-The properties in the `application.properties` are used by the Cassandra and Astra auto-configuration, we need the configuration to connect to our cloud database:
+=== Astra setup and configuration
+
+To use a managed database, you can use the free tier of https://dtsx.io/3i9C8t1[DataStax Astra] Cassandra-as-a-Service. You'll be able to create and store data in your Cassandra database in a matter of minutes.
+
+Follow the instructions in https://docs.datastax.com/en/astra/docs/gs-grant-user-access.html[the following link] to create a database and keystore named `spring_cassandra`.
+
+The Spring Boot Astra starter will pull in and autoconfigure all the required dependencies, add it to your `pom.xml`:
+
+====
+[source,xml]
+----
+<dependency>
+	<groupId>com.datastax.astra</groupId>
+	<artifactId>astra-spring-boot-starter</artifactId>
+	<version>0.1.13</version>
+</dependency>
+----
+====
+
+NOTE: For Gradle, add `implementation 'com.datastax.astra:astra-spring-boot-starter:0.1.13'` to your `build.gradle`
+
+The Astra auto-configuration needs the configuration to connect to our cloud database:
 
 * Define the credentials: client ID, client secret and application token.
 
-* Select your instance with the cloud region, database id and keyspace (`spring-cassandra`).
+* Select your instance with the cloud region, database id and keyspace (`spring_cassandra`).
+
+Add these extra properties in your `application.properties` (`src/main/resources/application.properties`) to configure Astra:
+
+====
+[source,properties]
+----
+# Credentials to Astra DB
+astra.client-id=<CLIENT_ID>
+astra.client-secret=<CLIENT_SECRET>
+astra.application-token=<APP_TOKEN>
+
+# Select an Astra instance
+astra.cloud-region=<DB_REGION>
+astra.database-id=<DB_ID>
+astra.keyspace=spring_cassandra
+----
+====
+
+=== Docker setup and configuration
+
+If you prefer to run Cassandra locally in a containerized environment, execute the following docker run command: 
+
+[source,bash]
+----
+docker run -p 9042:9042 --rm --name cassandra -d cassandra:3.11
+----
+
+After the container is created, access the Cassandra query language shell:
+
+[source,bash]
+----
+docker exec -it cassandra cqlsh
+----
+
+And create a keyspace for the application:
+
+[source,bash]
+----
+CREATE KEYSPACE spring_cassandra WITH replication = {'class' : 'SimpleStrategy', 'replication_factor' : 1};
+----
+
+Now that you have your database running, configure Spring Data Cassandra to access your database.
+
+Add the following properties in your `application.properties` (`src/main/resources/application.properties`) to connect to your local database:
+====
+[source,properties]
+----
+spring.data.cassandra.local-datacenter=datacenter1
+spring.data.cassandra.keyspace-name=spring_cassandra
+----
+====
 
 == Create the Cassandra Entity
 
