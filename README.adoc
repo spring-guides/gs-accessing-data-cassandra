@@ -63,11 +63,9 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 
 [[initial]]
-== Set up a database
+== Setting up a database
 
-Before you can build the application, you need to set up a Cassandra database.
-
-Apache Cassandra is an open-source NoSQL data store optimized for fast reads and fast writes in large datasets. In the next subsections, you can choose between using https://dtsx.io/3i9C8t1[DataStax Astra] Cassandra-as-a-Service or running it locally on a Docker container.
+Before you can build the application, you need to set up a Cassandra database. Apache Cassandra is an open-source NoSQL data store optimized for fast reads and fast writes in large datasets. In the next subsections, you can choose between using https://dtsx.io/3i9C8t1[DataStax Astra DB] Cassandra-as-a-Service or running it locally on a Docker container. This guide will describe using the free tier of  DataStax Astra Cassandra-as-a-Service so you can create and store data in your Cassandra database in a matter of minutes. 
 
 Add the following properties in your `application.properties` (`src/main/resources/application.properties`) to configure Spring Data Cassandra:
 ====
@@ -88,11 +86,9 @@ NOTE: It is a good security practice to set this to `none` in production, to avo
 
 We will also be increasing the default timeouts which might be needed when first creating the schema or with slow remote network connections.
 
-=== Astra setup and configuration
+=== Astra DB Setup
 
-To use a managed database, you can use the free tier of https://dtsx.io/3i9C8t1[DataStax Astra] Cassandra-as-a-Service. You'll be able to create and store data in your Cassandra database in a matter of minutes.
-
-Follow the instructions in https://docs.datastax.com/en/astra/docs/gs-grant-user-access.html[the following link] to create a database and keystore named `spring_cassandra`.
+To use a managed database, you can use the rebust free tier of https://dtsx.io/3i9C8t1[DataStax Astra DB] Cassandra-as-a-Service. It will scale to zero when unused. Follow the instructions in https://docs.datastax.com/en/astra/docs/gs-grant-user-access.html[the following link] to create a database and keystore named `spring_cassandra`.
 
 The Spring Boot Astra starter will pull in and autoconfigure all the required dependencies, add it to your `pom.xml`:
 
@@ -132,7 +128,7 @@ astra.keyspace=spring_cassandra
 ----
 ====
 
-=== Docker setup and configuration
+=== Docker Setup
 
 If you prefer to run Cassandra locally in a containerized environment, execute the following docker run command: 
 
@@ -165,6 +161,8 @@ spring.data.cassandra.local-datacenter=datacenter1
 spring.data.cassandra.keyspace-name=spring_cassandra
 ----
 ====
+
+Alternatively, for a convenient bundle of Cassandra and related Kubernetes ecosystem projects, you can spin up a single node Cassandra cluster on https://dtsx.io/3ilFaKT[K8ssandra] in about 10 minutes.
 
 == Create the Cassandra Entity
 
