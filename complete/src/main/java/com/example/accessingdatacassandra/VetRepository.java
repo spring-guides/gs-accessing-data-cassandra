@@ -2,8 +2,8 @@ package com.example.accessingdatacassandra;
 
 import java.util.UUID;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.cassandra.repository.CassandraRepository;
 
-public interface VetRepository extends CrudRepository<Vet, UUID> {	
+public interface VetRepository extends CassandraRepository<Vet, UUID> {
 	Vet findByFirstName(String username);
 }
