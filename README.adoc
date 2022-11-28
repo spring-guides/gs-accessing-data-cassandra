@@ -108,7 +108,7 @@ If you prefer to run Cassandra locally in a containerized environment, run the f
 
 [source,bash]
 ----
-docker run -p 9042:9042 --rm --name cassandra -d cassandra:3.11
+docker run -p 9042:9042 --rm --name cassandra -d cassandra:4.0.7
 ----
 
 After the container is created, access the Cassandra query language shell:
