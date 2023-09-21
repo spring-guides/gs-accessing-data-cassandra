@@ -20,7 +20,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-You can use this https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.1.0&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=gs-accessing-data-cassandra&name=gs-accessing-data-cassandra&description=Accessing%20Data%20with%20Cassandra&packageName=com.example.gs-accessing-data-cassandra&dependencies=data-cassandra[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+You can use this https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=gs-accessing-data-cassandra&name=gs-accessing-data-cassandra&description=Accessing%20Data%20with%20Cassandra&packageName=com.example.gs-accessing-data-cassandra&dependencies=data-cassandra[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
@@ -45,10 +45,11 @@ Add the following properties in your `application.properties` (`src/main/resourc
 ====
 [source,properties]
 ----
-spring.data.cassandra.schema-action=CREATE_IF_NOT_EXISTS
-spring.data.cassandra.request.timeout=10s
-spring.data.cassandra.connection.connect-timeout=10s
-spring.data.cassandra.connection.init-query-timeout=10s
+spring.cassandra.schema-action=CREATE_IF_NOT_EXISTS
+spring.cassandra.request.timeout=10s
+spring.cassandra.connection.connect-timeout=10s
+spring.cassandra.connection.init-query-timeout=10s
+
 ----
 ====
 
@@ -132,8 +133,8 @@ Add the following properties in your `application.properties` (`src/main/resourc
 ====
 [source,properties]
 ----
-spring.data.cassandra.local-datacenter=datacenter1
-spring.data.cassandra.keyspace-name=spring_cassandra
+spring.cassandra.local-datacenter=datacenter1
+spring.cassandra.keyspace-name=spring_cassandra
 ----
 ====
 
