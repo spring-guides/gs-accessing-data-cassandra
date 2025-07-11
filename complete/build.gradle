@@ -19,6 +19,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
 	//implementation 'com.datastax.astra:astra-spring-boot-starter:0.1.13'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly "org.springframework.boot:spring-boot-docker-compose"
 }
 
 tasks.named('test') {

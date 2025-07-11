@@ -1,0 +1,10 @@
+services:
+  cassandra:
+    image: cassandra:4.0.7
+    ports:
+      - "9042:9042"
+    healthcheck:
+      test: ["CMD", "cqlsh", "-u", "cassandra", "-p", "cassandra"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
