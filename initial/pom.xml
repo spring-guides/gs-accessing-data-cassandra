@@ -9,11 +9,11 @@
 		<version>3.5.8</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>accessing-data-cassandra</artifactId>
+	<groupId>org.springframework</groupId>
+	<artifactId>accessing-data-cassandra-initial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>accessing-data-cassandra</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo project for Spring Data Cassandra</description>
 
 	<properties>
 		<java.version>17</java.version>
