@@ -53,7 +53,7 @@ spring.cassandra.connection.init-query-timeout=10s
 ----
 ====
 
-The `spring.data.cassandra.schema-action` property defines the schema action to take at startup and can be `none`, `create`, `create-if-not-exists`, `recreate` or `recreate-drop-unused`. We use `create-if-not-exists` to create the required schema. See the
+The `spring.cassandra.schema-action` property defines the schema action to take at startup and can be `none`, `create`, `create-if-not-exists`, `recreate` or `recreate-drop-unused`. We use `create-if-not-exists` to create the required schema. See the
 https://docs.spring.io/spring-data/cassandra/docs/current/reference/html/#cassandra.schema-management.tables[documentation] for details.
 
 
@@ -164,7 +164,7 @@ Cassandra denormalizes data and does not need table joins like SQL/RDBMS does, w
 
 Spring Data Cassandra is focused on storing data in Apache Cassandra. However, it inherits functionality from the Spring Data Commons project, including the ability to derive queries. Essentially, you need not learn the query language of Cassandra. Instead, you can write a handful of methods and let the queries be written for you.
 
-To see how this works, create a repository interface that queries `Vet` entities, as the following listing (in `src/main/java/com/example/accessingdatacaddandra/VetRepository.java`) shows:
+To see how this works, create a repository interface that queries `Vet` entities, as the following listing (in `src/main/java/com/example/accessingdatacassandra/VetRepository.java`) shows:
 
 ====
 [source,java,tabsize=2]
@@ -173,7 +173,12 @@ include::complete/src/main/java/com/example/accessingdatacassandra/VetRepository
 ----
 ====
 
-`VetRepository` extends the `CassandraRepository` interface and specifies types for the generic type parameters for both the value and the key that the repository works with -- `Vet` and `UUID`, respectively. This interface comes with many operations, including basic CRUD (Create, Read, Update, Delete) and simple query (such as `findById(..)`) data access operations. `CassandraRepository` does not extend from `PagingAndSortingRepository`, because classic paging patterns using limit or offset are not applicable to Cassandra.
+`VetRepository` extends the `CrudRepository` interface and specifies types for the generic type parameters for both the value and the key that the repository works with -- `Vet` and `UUID`, respectively. This interface comes with many operations, including basic CRUD (Create, Read, Update, Delete) and simple query (such as `findById(..)`) data access operations.
+
+[NOTE]
+====
+Spring Data Cassandra also ships with https://docs.spring.io/spring-data/cassandra/docs/current/api/org/springframework/data/cassandra/repository/CassandraRepository.html[`CassandraRepository`], an interface that exposes Cassandra-specific support for partitioning and compound keys.
+====
 
 You can define other queries as needed by declaring their method signature. However, you can perform only queries that include the primary key. The `findByFirstName` method is a valid Spring Data method but is not allowed in Cassandra as `firstName` is not part of the primary key.
 
@@ -193,7 +198,7 @@ that extend one of Spring Data's repository interfaces. You can use its
 different root package by type if your project layout has multiple projects and it does
 not find your repositories.
 
-Spring Data Cassandra uses the `CassandraTemplate` to execute the queries behind your `find*` methods. You can use the template yourself for more complex queries, but this guide does not cover that. (See the Spring Data Cassandra Reference Guide[https://docs.spring.io/spring-data/cassandra/docs/current/reference/html/#reference]).
+Spring Data Cassandra uses the `CassandraTemplate` to execute the queries behind your `find*` methods. You can use the template yourself for more complex queries, but this guide does not cover that. (See the https://docs.spring.io/spring-data/cassandra/docs/current/reference/html/#reference[Spring Data Cassandra Reference Guide]).
 
 The following listing shows the finished `AccessingDataCassandraApplication` class (at /src/main/java/com/example/accessingdatacassandra/AccessingDataCassandraApplication.java):
 
