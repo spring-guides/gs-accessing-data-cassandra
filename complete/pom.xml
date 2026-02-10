@@ -22,13 +22,13 @@
 			<artifactId>spring-boot-starter-data-cassandra</artifactId>
 		</dependency>
 
-		<!--
+		<!-- tag::astra[]
 		<dependency>
 			<groupId>com.datastax.astra</groupId>
-			<artifactId>astra-spring-boot-starter</artifactId>
-			<version>0.1.13</version>
+			<artifactId>astra-spring-boot-3x-starter</artifactId>
+			<version>1.2.9</version>
 		</dependency>
-		-->
+		end::astra[] -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

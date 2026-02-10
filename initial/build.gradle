@@ -17,7 +17,11 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
-	//implementation 'com.datastax.astra:astra-spring-boot-starter:0.1.13'
+	/*
+	// tag::astra[]
+	implementation 'com.datastax.astra:astra-spring-boot-3x-starter:1.2.9'
+	// end::astra[]
+	*/
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly "org.springframework.boot:spring-boot-docker-compose"
 }

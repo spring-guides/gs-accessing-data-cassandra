@@ -70,15 +70,16 @@ The Spring Boot Astra starter pulls in and autoconfigures all the required depen
 ====
 [source,xml]
 ----
-<dependency>
-	<groupId>com.datastax.astra</groupId>
-	<artifactId>astra-spring-boot-starter</artifactId>
-	<version>0.1.13</version>
-</dependency>
+include::complete/pom.xml[tag=astra]
 ----
 ====
 
-NOTE: For Gradle, add `implementation 'com.datastax.astra:astra-spring-boot-starter:0.1.13'` to your `build.gradle` file.
+NOTE: For Gradle, add the following to your `build.gradle` file:
+
+[source,gradle]
+----
+include::complete/build.gradle[tag=astra]
+----
 
 The Astra auto-configuration needs configuration information to connect to your cloud database. You need to:
 
