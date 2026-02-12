@@ -20,14 +20,14 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-You can use this https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=gs-accessing-data-cassandra&name=gs-accessing-data-cassandra&description=Accessing%20Data%20with%20Cassandra&packageName=com.example.accessingdatacassandra&dependencies=data-cassandra,docker-compose[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+You can use this https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=gs-accessing-data-cassandra&name=gs-accessing-data-cassandra&description=Accessing%20Data%20with%20Cassandra&packageName=com.example.accessingdatacassandra&dependencies=data-cassandra,docker-compose,testcontainers[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
 . Navigate to https://start.spring.io.
 This service pulls in all the dependencies you need for an application and does most of the setup for you.
 . Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.
-. Click *Dependencies* and select *Spring Data for Apache Cassandra*.
+. Click *Dependencies* and select *Spring Data for Apache Cassandra*, *Docker Compose*, and *Testcontainers*.
 . Click *Generate*.
 . Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.
 
