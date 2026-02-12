@@ -20,7 +20,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-You can use this https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=gs-accessing-data-cassandra&name=gs-accessing-data-cassandra&description=Accessing%20Data%20with%20Cassandra&packageName=com.example.gs-accessing-data-cassandra&dependencies=data-cassandra[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+You can use this https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=gs-accessing-data-cassandra&name=gs-accessing-data-cassandra&description=Accessing%20Data%20with%20Cassandra&packageName=com.example.accessingdatacassandra&dependencies=data-cassandra[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
@@ -33,7 +33,7 @@ This service pulls in all the dependencies you need for an application and does 
 
 NOTE: If your IDE has the Spring Initializr integration, you can complete this process from your IDE.
 
-NOTE: You can also fork the project from Github and open it in your IDE or other editor.
+NOTE: You can also fork the project from GitHub and open it in your IDE or other editor.
 
 [[initial]]
 == Setting up a Database
@@ -139,7 +139,7 @@ spring.cassandra.keyspace-name=spring_cassandra
 ----
 ====
 
-Alternatively, for a convenient bundle of Cassandra and related Kubernetes ecosystem projects, you can spin up a single node Cassandra cluster on https://dtsx.io/3ilFaKT[K8ssandra] in about 10 minutes.
+Alternatively, for a convenient bundle of Cassandra and related Kubernetes ecosystem projects, you can spin up a single node Cassandra cluster on https://docs.k8ssandra.io[K8ssandra] in about 10 minutes.
 
 == Create the Cassandra Entity
 
@@ -196,7 +196,7 @@ over the registration process, you can use the `@EnableCassandraRepositories` an
 NOTE: By default, `@EnableCassandraRepositories` scans the current package for any interfaces
 that extend one of Spring Data's repository interfaces. You can use its
 `basePackageClasses=MyRepository.class` to safely tell Spring Data Cassandra to scan a
-different root package by type if your project layout has multiple projects and it does
+different root package by type if your project layout has multiple projects, and it does
 not find your repositories.
 
 Spring Data Cassandra uses the `CassandraTemplate` to execute the queries behind your `find*` methods. You can use the template yourself for more complex queries, but this guide does not cover that. (See the https://docs.spring.io/spring-data/cassandra/docs/current/reference/html/#reference[Spring Data Cassandra Reference Guide]).
