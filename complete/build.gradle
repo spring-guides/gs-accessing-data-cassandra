@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.5.8'
+	id 'org.springframework.boot' version '4.0.2'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -24,11 +24,11 @@ dependencies {
 	implementation 'com.datastax.astra:astra-spring-boot-3x-starter:1.2.9'
 	// end::astra[]
 	*/
-	developmentOnly "org.springframework.boot:spring-boot-docker-compose"
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+	testImplementation 'org.springframework.boot:spring-boot-starter-data-cassandra-test'
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
-	testImplementation 'org.testcontainers:cassandra'
-	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:testcontainers-cassandra'
+	testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
