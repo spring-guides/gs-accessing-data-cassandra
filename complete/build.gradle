@@ -4,11 +4,13 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'org.springframework'
+group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
 }
 
 repositories {
@@ -22,8 +24,12 @@ dependencies {
 	implementation 'com.datastax.astra:astra-spring-boot-3x-starter:1.2.9'
 	// end::astra[]
 	*/
+	developmentOnly "org.springframework.boot:spring-boot-docker-compose"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	runtimeOnly "org.springframework.boot:spring-boot-docker-compose"
+	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation 'org.testcontainers:cassandra'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {

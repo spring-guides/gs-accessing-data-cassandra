@@ -20,7 +20,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-You can use this https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=gs-accessing-data-cassandra&name=gs-accessing-data-cassandra&description=Accessing%20Data%20with%20Cassandra&packageName=com.example.accessingdatacassandra&dependencies=data-cassandra[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+You can use this https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=gs-accessing-data-cassandra&name=gs-accessing-data-cassandra&description=Accessing%20Data%20with%20Cassandra&packageName=com.example.accessingdatacassandra&dependencies=data-cassandra,docker-compose[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
@@ -106,18 +106,30 @@ astra.keyspace=spring_cassandra
 
 === Docker Setup
 
-If you prefer to run Cassandra locally in a containerized environment, run the following docker run command:
+If you prefer to run Cassandra locally in a containerized environment add the following `compose.yaml` at the root of the project:
+
+====
+[source,yaml,tabsize=2]
+----
+include::complete/compose.yaml[]
+----
+====
+
+Notice the `accessing_data_cassandra` container name.
+
+You can use the regular Docker compose command, typically:
 
 [source,bash]
 ----
-docker run -p 9042:9042 --rm --name cassandra -d cassandra:4.0.7
+docker compose up -d
 ----
 
-After the container is created, access the Cassandra query language shell:
+After the container has started, you need to create a Keyspace.
+Access the Cassandra query language shell as follows
 
 [source,bash]
 ----
-docker exec -it cassandra bash -c "cqlsh -u cassandra -p cassandra"
+docker exec -it accessing_data_cassandra bash -c "cqlsh -u cassandra -p cassandra"
 ----
 
 And create a keyspace for the application:
